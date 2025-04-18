@@ -9,7 +9,7 @@ public class RootFromProduct {
             for(int i = 0; i < args.length; i++) {
                 numbers[i] = Double.parseDouble(args[i]);
             }
-            System.out.println(calculate(numbers));
+            System.out.println("Result: "+calculate(numbers));
         } catch(IllegalArgumentException e) {
             System.err.println("One of your parameters wasnt a number, sorry!");
             return;
