@@ -13,18 +13,16 @@ public class EquationSolver {
                 System.err.println("Illegal Argument: a, b or c illegal double value!");    //prints reason for exit to err then exits program
                 return;
             }
-            System.out.println(a+" "+b+" "+c);
             try {
                 Equation Current = new Equation(a, b, c);
                 Result = Current.solve();
+                System.out.println("Solution x1: "+Result.getX1()+" Solution x2: "+Result.getX2());
             } catch (NoQuadraticException e) {
                 System.err.println("Not quadratic: a = 0 not allowed"); //prints reason for exit to err then exits program
-                return;
             } catch (UnsolvableException e) {
                 System.out.println("Unsolvable: b*b-4*a*c < 0");    //sysout since its technically also a "result" to the equation
-                return;
             }
-            System.out.println("Solution x1: "+Result.getX1()+" Solution x2: "+Result.getX2());
+
         }
     }
 }

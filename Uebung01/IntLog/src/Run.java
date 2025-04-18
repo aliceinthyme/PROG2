@@ -18,7 +18,7 @@ public class Run {
             result++;
         }
         assert n == 0;
-        assert result >= 1;
+        assert result >= 0;
         return(result);
     }
 }
