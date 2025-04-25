@@ -1,0 +1,102 @@
+package myMath;
+public class BigInt {
+    //variable block
+    private String number;
+    //constructor block
+    public BigInt(String d) throws InvalidInputException {
+        boolean numStart = false;
+        String temp = "";
+        for(int i = 0; i < d.length(); i++) {
+            int test = d.charAt(i) - '0';
+            if((test < 0) || (test > 9)) {
+                throw new InvalidInputException();
+            }
+            //trims leading 0s
+            if (test != 0) {
+                numStart = true;
+            }
+            if(numStart) {
+                temp = temp + test;
+            }
+        }
+        number = temp;
+    }
+    public BigInt(int i) throws InvalidInputException {
+        if(i < 0) {
+            throw new InvalidInputException();
+        }
+        number = Integer.toString(i);
+    }
+    //getters and setters
+    public String getNumber() {
+        return(this.number);
+    }
+    public void setNumber(String n) {
+        this.number = n;
+    }
+    //method block
+    public void print() {
+        System.out.println(number);
+    }
+    boolean less(BigInt b) {
+        if(this.number.length() < b.number.length()) {
+            return(true);
+        } else if(this.number.length() > b.number.length()) {
+            return(false);
+        } else {
+            for(int i = 0; i < this.number.length(); i++) {
+                int here = this.number.charAt(i) - '0';
+                int there = b.number.charAt(i) - '0';
+                if (here < there) {
+                    return(true);
+                } else if (here > there) {
+                    return(false);
+                }
+            }
+            return(false); //returns false if both numbers are equal, since other returns would have triggered by now if not
+        }
+        
+    }
+    public BigInt add(BigInt b) {
+        String result = "";
+        int overflow = 0;
+        int storage = 0;
+        int here = this.number.length();
+        int there = b.number.length();
+        while (here != 0 && there != 0) {
+            if(here != 0) {
+                int temp = this.number.charAt(here-1) - '0';
+                storage += temp;
+                here--;
+                assert here >= 0;
+            }
+            if(there != 0) {
+                int temp = this.number.charAt(there-1) - '0';
+                storage += temp;
+                there--;
+                assert there >= 0;
+            }
+            //adds overflow to storage and then creates new overflow value!
+            storage += overflow;
+            assert storage < 20;
+            overflow = storage;
+            storage = storage % 10;
+            assert storage < 10;
+            overflow -= storage;
+            if(overflow == 10) {
+                overflow = 1;
+            }
+            assert overflow >= 0;
+            assert overflow <= 1;
+            result = storage+result;
+        }
+        System.out.println(result);
+        try {
+            BigInt a = new BigInt(result);
+            return(a);
+        } catch(InvalidInputException e) {
+            BigInt a = null;
+            return(a);
+        }
+    }
+}
