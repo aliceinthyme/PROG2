@@ -12,7 +12,7 @@ public class BigInt {
                 throw new InvalidInputException();
             }
             //trims leading 0s
-            if (test != 0) {
+            if (test != 0 || d.length() == 1) {
                 numStart = true;
             }
             if(numStart) {
@@ -58,11 +58,11 @@ public class BigInt {
         
     }
     public BigInt add(BigInt b) {
-        String result = "0";
+        String result = "";
         int overflow = 0;
         int storage = 0;
         int here = this.number.length();
-        System.out.println("here"+here);    //THE ERROR IS HERE, its somehow taking the int value 0 instead of the length value 1 WHICH IS WHAT IT OUGHT TO BE TAKING!
+        System.out.println("here"+here);    
         int there = b.number.length();
         System.out.println("there"+there);
         while (here != 0 || there != 0) {
@@ -81,7 +81,7 @@ public class BigInt {
                 assert there >= 0;
             }
             //adds overflow to storage and then creates new overflow value!
-            storage += overflow;
+            storage += overflow;    //THE ERROR IS HERE
             assert storage < 20;
             overflow = storage;
             storage = storage % 10;
