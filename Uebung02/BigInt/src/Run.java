@@ -9,6 +9,7 @@ public class Run {
             System.out.println("Please input a number!");
         }
     }
+    //code to calculate fib numbers, adapted from my code from the first semester in PROG1
     public static void iterative (int a) throws InvalidInputException {
         //int prev1 = 0;
         myMath.BigInt prev1 = new myMath.BigInt("0"); //0
