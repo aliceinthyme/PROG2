@@ -90,7 +90,7 @@ public class BigInt {
             if(overflow == 10) {
                 overflow = 1;
             }
-            System.out.println(overflow + " Storage: "+storage);
+            //System.out.println(overflow + " Storage: "+storage);
             assert overflow >= 0;
             assert overflow <= 1;
             //System.out.println("This "+result);
@@ -100,7 +100,7 @@ public class BigInt {
             }
             storage = 0;
         }
-        System.out.println(result+" Hi!");
+        //System.out.println(result+" Hi!");
         try {
             BigInt a = new BigInt(result);
             return(a);
