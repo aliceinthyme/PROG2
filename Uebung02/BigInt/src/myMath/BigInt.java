@@ -36,7 +36,7 @@ public class BigInt {
     }
     //method block
     public void print() {
-        System.out.println(number);
+        System.out.println("The final result is: "+number);
     }
     boolean less(BigInt b) {
         if(this.number.length() < b.number.length()) {
@@ -58,20 +58,24 @@ public class BigInt {
         
     }
     public BigInt add(BigInt b) {
-        String result = "";
+        String result = "0";
         int overflow = 0;
         int storage = 0;
         int here = this.number.length();
+        System.out.println("here"+here);    //THE ERROR IS HERE, its somehow taking the int value 0 instead of the length value 1 WHICH IS WHAT IT OUGHT TO BE TAKING!
         int there = b.number.length();
-        while (here != 0 && there != 0) {
+        System.out.println("there"+there);
+        while (here != 0 || there != 0) {
             if(here != 0) {
                 int temp = this.number.charAt(here-1) - '0';
+                System.out.println("temp1: "+temp);
                 storage += temp;
                 here--;
                 assert here >= 0;
             }
             if(there != 0) {
-                int temp = this.number.charAt(there-1) - '0';
+                int temp = b.number.charAt(there-1) - '0';
+                System.out.println("temp2: "+temp);
                 storage += temp;
                 there--;
                 assert there >= 0;
@@ -90,7 +94,7 @@ public class BigInt {
             assert overflow <= 1;
             result = storage+result;
         }
-        System.out.println(result);
+        System.out.println(result+" Hi!");
         try {
             BigInt a = new BigInt(result);
             return(a);

@@ -11,9 +11,9 @@ public class Run {
     }
     public static void iterative (int a) throws InvalidInputException {
         //int prev1 = 0;
-        myMath.BigInt prev1 = new myMath.BigInt(0); //0
+        myMath.BigInt prev1 = new myMath.BigInt("0"); //0
         //int prev2 = 1;
-        myMath.BigInt prev2 = new myMath.BigInt(1); //1
+        myMath.BigInt prev2 = new myMath.BigInt("1"); //1
         //int result = 2;
         myMath.BigInt result = null; //2
         switch (a) {
@@ -29,7 +29,6 @@ public class Run {
                     prev1.setNumber(prev2.getNumber());
                     prev2.setNumber(result.getNumber());
                 }
-                System.out.println(result.getNumber());
                 result.print();
         }
     }

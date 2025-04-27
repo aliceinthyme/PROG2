@@ -9,7 +9,7 @@ public class Rational {
         num = n;
         denom = 1;
     }
-    Rational(int n, int d) {
+    Rational(int n, int d) throws ArithmeticException {
         if(d < 0) {
             d = -d;
             n = -n;
@@ -17,7 +17,7 @@ public class Rational {
             assert d > 0;
         }
         if(d == 0) {
-            new ArithmeticException();
+            new ArithmeticException("Division by 0");
         }
         num = n;
         denom = d;
@@ -26,6 +26,7 @@ public class Rational {
     Rational(Rational r) {
         num = r.num;
         denom = r.denom;
+        assert denom != 0;
     }
     //getters/setters
     public int getNum() {
