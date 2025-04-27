@@ -58,30 +58,30 @@ public class BigInt {
         
     }
     public BigInt add(BigInt b) {
-        String result = "";
+        String result = ""; 
         int overflow = 0;
         int storage = 0;
         int here = this.number.length();
-        System.out.println("here"+here);    
+        //System.out.println("here"+here);    
         int there = b.number.length();
-        System.out.println("there"+there);
+        //System.out.println("there"+there);
         while (here != 0 || there != 0) {
             if(here != 0) {
                 int temp = this.number.charAt(here-1) - '0';
-                System.out.println("temp1: "+temp);
+                //System.out.println("temp1: "+temp);
                 storage += temp;
                 here--;
                 assert here >= 0;
             }
             if(there != 0) {
                 int temp = b.number.charAt(there-1) - '0';
-                System.out.println("temp2: "+temp);
+                //System.out.println("temp2: "+temp);
                 storage += temp;
                 there--;
                 assert there >= 0;
             }
             //adds overflow to storage and then creates new overflow value!
-            storage += overflow;    //THE ERROR IS HERE
+            storage += overflow;    
             assert storage < 20;
             overflow = storage;
             storage = storage % 10;
@@ -90,9 +90,15 @@ public class BigInt {
             if(overflow == 10) {
                 overflow = 1;
             }
+            System.out.println(overflow + " Storage: "+storage);
             assert overflow >= 0;
             assert overflow <= 1;
+            //System.out.println("This "+result);
             result = storage+result;
+            if(here == 0 && there == 0) {
+                result = overflow+result;
+            }
+            storage = 0;
         }
         System.out.println(result+" Hi!");
         try {
