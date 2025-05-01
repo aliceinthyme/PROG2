@@ -1,6 +1,5 @@
 import java.io.*;
 import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.Objects;
 public class FindDupe {
     public static void main(String[] args) throws Exception {
