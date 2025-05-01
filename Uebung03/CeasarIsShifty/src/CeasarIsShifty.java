@@ -4,12 +4,13 @@ import Ceasar.*;
 
 public class CeasarIsShifty {
     public static void main(String[] args) throws Exception {    
+        File file = new File("encrypted.bin");
         try {
             //encryption
             InputStream stdin = System.in;
             CeasarEncode a = new CeasarEncode(stdin);
             //OutputStream file = new FileOutputStream();
-            Writer write = new FileWriter("encrypted.bin");
+            Writer write = new FileWriter(file);
             StringBuilder build = new StringBuilder();
             int b = 0;
             while((b = a.read()) != 17) {
@@ -18,6 +19,7 @@ public class CeasarIsShifty {
                     build.append((char)b);
                 }
             }
+            System.out.print("\n");
             write.write(build.toString());
             stdin.close();
             write.flush();
@@ -27,14 +29,16 @@ public class CeasarIsShifty {
 
         }
         try {
-            InputStream file = new FileInputStream(".encrypted.bin");
-            BufferedInputStream reading = new BufferedInputStream(file);
+            InputStream output = new FileInputStream(file);
+            BufferedInputStream reading = new BufferedInputStream(output);
             CeasarDecode dec = new CeasarDecode(reading);
             int c = 0;
             while((c = dec.read()) != -1) {
-                System.out.println("1");
-                System.out.println((char)c);
+                System.out.print((char)c);
             }
+            dec.close();
+            reading.close();
+            output.close();
         } catch(IOException e) {
 
         }
