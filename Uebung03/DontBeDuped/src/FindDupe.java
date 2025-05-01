@@ -9,6 +9,8 @@ public class FindDupe {
             lookup(startFolder, compareTo);
         } catch(IOException e) {
             System.out.println("Something went wrong");
+        } catch(ArrayIndexOutOfBoundsException e) {
+            System.out.println("Please actually input something!");
         }
     }
     public static void lookup (File start, File comp) throws IOException {
