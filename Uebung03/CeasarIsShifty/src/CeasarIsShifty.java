@@ -25,7 +25,8 @@ public class CeasarIsShifty {
         }
         try {
             InputStream file = new FileInputStream("encrypted.bin");
-            CeasarDecode dec = new CeasarDecode(file);
+            BufferedInputStream reading = new BufferedInputStream(file);
+            CeasarDecode dec = new CeasarDecode(reading);
             int c = 0;
             while((c = dec.read()) != -1) {
                 System.out.println((char)c);
