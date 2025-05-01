@@ -36,19 +36,3 @@ public class FindDupe {
         System.out.println(totalDupes);
     }
 }
-
-
-/*
- * if(files != null) {
-            for (File i : files) {
-                if(Objects.equals(i.getName(), comp.getName())) {
-                    if (i.length() == comp.length()) {
-                        long mis = Files.mismatch(i.toPath(), comp.toPath());
-                        if(mis == -1) {
-                            System.out.println("Duplicate: "+i.getAbsolutePath());
-                        }
-                    }
-                }
-            }
-        }
- */
