@@ -2,7 +2,7 @@ package Ceasar;
 import java.io.*;
 
 public class CeasarDecode extends FilterInputStream {
-    CeasarDecode(InputStream in) {
+    public CeasarDecode(InputStream in) {
         super(in);
     }
     public int read() throws IOException {
