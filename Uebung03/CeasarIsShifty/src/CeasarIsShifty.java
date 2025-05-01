@@ -1,21 +1,18 @@
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.StringReader;
 
 import Ceasar.*;
 
 public class CeasarIsShifty {
-    public static void main(String[] args) throws Exception {
-        InputStream stdin = System.in;
-        
-
+    public static void main(String[] args) throws Exception {    
         try {
+            InputStream stdin = System.in;
             CeasarEncode a = new CeasarEncode(stdin);
             int b = 0;
-            while((b = a.read()) != -1) {
-                System.out.print((char)b);
+            while((b = a.read()) != 17) {
+                if(b != 20) {
+                    System.out.print((char)b);
+                }
             }
             stdin.close();
             System.out.println("1");
