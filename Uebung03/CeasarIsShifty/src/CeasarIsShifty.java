@@ -8,27 +8,31 @@ public class CeasarIsShifty {
             //encryption
             InputStream stdin = System.in;
             CeasarEncode a = new CeasarEncode(stdin);
-            OutputStream file = new FileOutputStream("encrypted.bin");
-            Writer write = new OutputStreamWriter(file, "utf-16");
-            PrintWriter writetofile = new PrintWriter(write);
+            //OutputStream file = new FileOutputStream();
+            Writer write = new FileWriter("encrypted.bin");
+            StringBuilder build = new StringBuilder();
             int b = 0;
             while((b = a.read()) != 17) {
                 if(b != 20) {
                     System.out.print((char)b);
-                    writetofile.print(b);
+                    build.append((char)b);
                 }
             }
+            write.write(build.toString());
             stdin.close();
+            write.flush();
+            write.close();
             //System.out.println("1");
         } catch(IOException e) {
 
         }
         try {
-            InputStream file = new FileInputStream("encrypted.bin");
+            InputStream file = new FileInputStream(".encrypted.bin");
             BufferedInputStream reading = new BufferedInputStream(file);
             CeasarDecode dec = new CeasarDecode(reading);
             int c = 0;
             while((c = dec.read()) != -1) {
+                System.out.println("1");
                 System.out.println((char)c);
             }
         } catch(IOException e) {
