@@ -10,7 +10,6 @@ public class List {
         for(int i = 0; i < counter; i++) {
             System.out.println(i+": "+h.getValue());
             h = h.getNext();
-            //System.out.println(h+" "+h.getNext()+" "+h.getPrev());
         }
     }
     public void insert(Node x, int p) throws IndexOutOfBoundsException {
@@ -22,16 +21,12 @@ public class List {
             assert p >= 0;
             assert p < (counter);
             if(first == null && last == null) {
-                //System.out.println("Hi!");
                 first = x;
                 last = x;
-                //System.out.println(first);
-                //System.out.println(last);
                 counter++;
                 return;
             }
             while ((h != last) && (curPos != p)) {
-                //System.out.println(curPos+" 1");
                 h = h.getNext();
                 curPos++;
             }
@@ -52,15 +47,8 @@ public class List {
                 h.setNext(x);
                 last = x;
                 counter++;
-                //System.out.println(first);
-                //System.out.println(last);
-                //System.out.println(x);
-                //System.out.println("Counter: "+counter);
-                //System.out.println(x.getNext());
-                //System.out.println(x.getPrev().getNext());
                 return;
             }
-            //System.out.println("End");
             //insert in middle of list
             assert p != counter - 1;
             if(p != 0 && p != counter) {
