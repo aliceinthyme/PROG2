@@ -18,7 +18,7 @@ public class FindDupe {
         int totalDupes = 0;
         if(directories != null) {
             for (String i : directories) {
-                String concat = start.getPath()+"/"+i;
+                String concat = start.getPath()+"/"+i;  //linux specific, for windows change to \
                 File temp = new File(concat);
                 if(temp.isDirectory()) {
                     lookup(temp, comp);

@@ -7,13 +7,10 @@ public class List {
     //methods
     public void print() {
         Node h = first;
-        int curPos = 0;
-        while ((h.getNext() != first) || (h != null)) {
-            //System.out.println(curPos+": "+h.getValue());
+        for(int i = 0; i < counter; i++) {
+            System.out.println(i+": "+h.getValue());
             h = h.getNext();
-            System.out.println(h+" "+h.getNext()+" "+h.getPrev());
-            curPos++;
-            return;
+            //System.out.println(h+" "+h.getNext()+" "+h.getPrev());
         }
     }
     public void insert(Node x, int p) throws IndexOutOfBoundsException {
@@ -25,18 +22,16 @@ public class List {
             assert p >= 0;
             assert p < (counter);
             if(first == null && last == null) {
-                System.out.println("Hi!");
+                //System.out.println("Hi!");
                 first = x;
                 last = x;
-                System.out.println(first);
-                System.out.println(last);
-                x.setNext(x);
-                x.setPrev(x);
+                //System.out.println(first);
+                //System.out.println(last);
                 counter++;
                 return;
             }
-            while ((h.getNext() != first) || (curPos != p)) {
-                System.out.println(curPos+" 1");
+            while ((h != last) && (curPos != p)) {
+                //System.out.println(curPos+" 1");
                 h = h.getNext();
                 curPos++;
             }
@@ -44,8 +39,8 @@ public class List {
             assert last != null;
             //insert at start of list
             if(p == 0) {
-                x.setNext(h.getNext());
-                x.setPrev(h.getPrev());
+                x.setNext(h);
+                h.setPrev(x);
                 first = x;
                 counter++;
                 return;
@@ -53,24 +48,28 @@ public class List {
             assert p != 0;
             //insert at end of list
             if(p == counter) {
-                x.setNext(first);
                 x.setPrev(last);
+                h.setNext(x);
                 last = x;
                 counter++;
-                System.out.println(first);
-                System.out.println(last);
-                System.out.println(x);
-                System.out.println("Counter: "+counter);
-                System.out.println(x.getNext());
-                System.out.println(x.getPrev().getNext());
+                //System.out.println(first);
+                //System.out.println(last);
+                //System.out.println(x);
+                //System.out.println("Counter: "+counter);
+                //System.out.println(x.getNext());
+                //System.out.println(x.getPrev().getNext());
                 return;
             }
-            System.out.println("End");
+            //System.out.println("End");
             //insert in middle of list
             assert p != counter - 1;
-            x.setNext(h.getNext());
-            x.setPrev(h.getPrev());
-            counter++;
+            if(p != 0 && p != counter) {
+                x.setNext(h);
+                x.setPrev(h.getPrev());
+                h.getPrev().setNext(x);
+                h.setPrev(x);
+                counter++;
+            }
         }
     }
     public Node remove(int p) throws IndexOutOfBoundsException, EmptyListException {
@@ -81,7 +80,7 @@ public class List {
         } else {
             assert p >= 0;
             assert p < (counter);
-            while ((h.getNext() != first) || (curPos != p)) {
+            while ((h != last) && (curPos != p)) {
                 h = h.getNext();
                 curPos++;
             }
@@ -90,24 +89,31 @@ public class List {
             }
             assert first != null;
             assert last != null;
+            //remove first element
             if(p == 0) {
-                h.getNext().setPrev(h.getPrev());
-                h.getPrev().setNext(h.getNext());
+                h.getNext().setPrev(null);
                 first = h.getNext();
+                h.setNext(null);
+                h.setPrev(null);
                 counter--;
                 return(h);
             }
             assert p != 0;
+            //remove last element
             if(p == counter - 1) {
-                h.getNext().setPrev(h.getPrev());
-                h.getPrev().setNext(h.getNext());
-                last = h.getNext();
+                h.getPrev().setNext(null);
+                last = h.getPrev();
+                h.setNext(null);
+                h.setPrev(null);
                 counter--;
                 return(h);
             }
             assert p != counter - 1;
+            //remove from middle
             h.getNext().setPrev(h.getPrev());
             h.getPrev().setNext(h.getNext());
+            h.setNext(null);
+            h.setPrev(null);
             counter--;
             return(h);
         }
@@ -115,8 +121,9 @@ public class List {
     public int search(Node x) {
         Node h = first;
         int curPos = 0;
-        while ((h.getNext() != first) || (h != null) || (h != last) || (h != x)) {
+        while ((h != last) && (h != x)) {
             h = h.getNext();
+            curPos++;
         }
         if(h == x) {
             return(curPos);
