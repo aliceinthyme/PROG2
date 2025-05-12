@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class App {
+public class LottoSimIGuess {
     public static void main(String[] args) throws Exception {
         ArrayList<Integer> fiftyBalls = new ArrayList<Integer>();
         ArrayList<Integer> tenBalls = new ArrayList<Integer>();
