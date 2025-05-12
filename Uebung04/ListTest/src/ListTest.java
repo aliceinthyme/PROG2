@@ -3,7 +3,8 @@ import java.util.LinkedList;
 
 public class ListTest {
     public static void main(String[] args) throws Exception {
-        final int N = 100000;   //constant
+        try {
+            final int N = 100000;   //constant
         int[] a = new int[] {1};
         ArrayList<Integer> b = new ArrayList<Integer>();
         LinkedList<Integer> c = new LinkedList<Integer>();
@@ -83,6 +84,9 @@ public class ListTest {
         }
         out = System.currentTimeMillis()-start;
         System.out.println("LinkedList rm first element: "+out);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Array index out of bounds");
+        }
         
     }
     static int[] arrayAppend(int[] a) {
