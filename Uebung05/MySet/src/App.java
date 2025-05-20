@@ -1,5 +1,3 @@
-import java.util.Iterator;
-
 public class App {
     public static void main(String[] args) throws Exception {
         try {
