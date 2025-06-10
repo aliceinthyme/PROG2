@@ -12,6 +12,7 @@ public class BinaryTree<T> {
     public TreeNode<T> getRoot() {
         return root;
     }
+    
 
     public void setRoot(TreeNode<T> r) {
         this.root = r;
@@ -55,5 +56,30 @@ public class BinaryTree<T> {
     public int height() {
         TreeNode<T> t = getRoot();
         return t.getHeight();
+    }
+    public boolean insert(TreeNode<T> ti) {
+        TreeNode<T> t = getRoot();
+        do {
+            if((int)t.getKey() > (int)ti.getKey()) {
+                if(t.getLeft() != null) {
+                    t = t.getLeft();
+                } else {
+                    t.setLeft(ti);
+                    return true;
+                }
+            }
+            System.out.println(t);
+            if((int)t.getKey() < (int)ti.getKey()) {
+                if(t.getRight() != null) {
+                    t = t.getRight();
+                } else {
+                    t.setRight(ti);
+                    return true;
+                }
+            }
+            if ((int)t.getKey() == (int)ti.getKey()) {
+                return false;   //duplicate entry
+            }
+        } while(true);
     }
 }
