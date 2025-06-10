@@ -57,7 +57,7 @@ public class BinaryTree<T> {
         TreeNode<T> t = getRoot();
         return t.getHeight();
     }
-    public boolean insert(TreeNode<T> ti) {
+    public boolean insert(TreeNode<T> ti) { //only works for Integer keys so far!
         TreeNode<T> t = getRoot();
         do {
             if((int)t.getKey() > (int)ti.getKey()) {
