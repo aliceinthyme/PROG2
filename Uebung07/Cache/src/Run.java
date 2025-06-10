@@ -7,6 +7,7 @@ public class Run {
     public static void main(String[] args) throws Exception {
         try {
             doTheThing(args[0]);
+            System.out.println("Number of cache hits this run: "+cachehits);
         } catch (IOException e) {
             System.err.println("IO Exception detected!");
         } catch (IndexOutOfBoundsException e) {
@@ -23,23 +24,29 @@ public class Run {
         //FileInputStream inp = new FileInputStream(cache);
         Scanner read = new Scanner(cache);
         //FileOutputStream out = new FileOutputStream(cache);
-        FileWriter write = new FileWriter(cache);
+        FileWriter write = new FileWriter(cache, true); //true so it appends instead of overwriting!
         ArrayList<String> clist = new ArrayList<String>();
-        while(read.hasNextLine()){
+        while(read.hasNextLine()){  //puts file contents into an ArrayList for easy runtime access
             clist.add(read.nextLine());
         }
-        System.out.println(clist);
+        System.out.println(clist);  //outputs file(array list) contents!
         Iterator iter = clist.iterator();
-        while(iter.hasNext()) {
+        while(iter.hasNext()) { //checks if string is already in cache file
             if(a.equals(iter.next().toString())) {
                 System.out.println("Unique letters: "+iter.next().toString());
                 cachehits++;
+                return;
             }
         }
+        //if string is not in cache file, add it to the cache file
         write.append(a+System.lineSeparator());
-        String number = Integer.toString(stuff(a));
-        write.append(number+System.lineSeparator());
+        //find number of unique chars
+        String number = Integer.toString(stuff(a)); 
+        //add the amount of unique chars of the string to the cache file too
+        write.append(number+System.lineSeparator());  
+        //throws stuff at the file  
         write.flush();
+        //close IO
         read.close();
         write.close();
     }
