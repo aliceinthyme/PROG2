@@ -23,12 +23,14 @@ public class TreeNode<T> {
         return key;
     }
 
-    public void setLeft(TreeNode<T> l) {
+    public boolean setLeft(TreeNode<T> l) {
         this.left = l;
+        return true;
     }
 
-    public void setRight(TreeNode<T> r) {
+    public boolean setRight(TreeNode<T> r) {
         this.right = r;
+        return true;
     }
 
     public void setKey(T o) {
@@ -57,6 +59,8 @@ public class TreeNode<T> {
             right.inorderTraversal();
         }
     }
+
+
 
     public void preorderTraversal() {
         System.out.print(this.getKey() + " ");

@@ -1,3 +1,5 @@
+import java.util.EmptyStackException;
+
 public class TreeNodeTest {
 
     public static void main(String[] args) {
@@ -75,8 +77,62 @@ public class TreeNodeTest {
             System.out.println(b2.leaves());
             System.out.println(b2.height());
 
+            SearchTree<Integer> st = new SearchTree<>();
+            st.insert(20);
+            st.insert(5);
+            st.insert(10);
+            st.insert(11);
+            st.insert(14);
+            st.insert(17);
+            st.insert(22);
+            st.insert(25);
+            st.insert(27);
+            st.insert(30);
+            st.insert(33);
+            st.levelorder();
+            st = st.reorganize();
+            System.out.println("\n-------");
+            st.levelorder();
+            System.out.println("");
+            System.out.println(st.level(30));
+            System.out.println(st.findParent(30));
+            SearchTree<Integer> st2 = new SearchTree<>();
+            st2.insert(4);
+            st2.insert(2);
+            st2.insert(6);
+            st2.insert(8);
+            st2.insert(9);
+            st2.insert(7);
+            st2.insert(5);
+            st2.insert(3);
+            st2.insert(1);
+            System.out.println("1");
+            st2.findParent(6);
+            System.out.println("2");
+            st2.level(9);
+            System.out.println("3");
+            st2.delete(5);
+            System.out.println("4");
+            st2.delete(6);
+            System.out.println("5");
+            st2.delete(4);
+            System.out.println("6");
+            st2.delete(7);
+            System.out.println("7");
+            st2.delete(8);
+            System.out.println("8");
+            st2.delete(9);
+            System.out.println("9");
+            st2.delete(2);
+            System.out.println("10");
+            st2.delete(1);
+            System.out.println("11");
+            st2.delete(3);
+            System.out.println("12");
         } catch (NullPointerException e) {
             System.err.println("NullPointerException detected!");
+        } catch (EmptyStackException e) {
+            System.err.println("EmptyStackException detected!");
         }
     }
 

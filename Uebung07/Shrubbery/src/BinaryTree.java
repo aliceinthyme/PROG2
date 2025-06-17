@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.Stack;
+
 public class BinaryTree<T> {
     private TreeNode<T> root;
 
@@ -14,8 +17,9 @@ public class BinaryTree<T> {
     }
     
 
-    public void setRoot(TreeNode<T> r) {
+    public boolean setRoot(TreeNode<T> r) {
         this.root = r;
+        return true;
     }
 
     public boolean isEmpty() {
@@ -81,5 +85,42 @@ public class BinaryTree<T> {
                 return false;   //duplicate entry
             }
         } while(true);
+    }
+    public ArrayList<TreeNode<T>> inorderArrayList() {
+        ArrayList<TreeNode<T>> list = new ArrayList<TreeNode<T>>();
+        Stack<TreeNode<T>> hold = new Stack<>();
+        TreeNode<T> cur = this.getRoot();
+        while(cur != null || !hold.isEmpty()) {
+            while(cur != null) {
+                if(cur != null) {
+                    hold.push(cur);
+                    cur = cur.getLeft();
+                }
+            }
+            assert cur == null;
+            cur = hold.pop();
+            list.add(cur);
+            cur = cur.getRight();
+        }
+        return list;
+    }
+    public TreeNode<T> search(T key) {
+        Stack<TreeNode<T>> hold = new Stack<>();
+        TreeNode<T> cur = this.getRoot();
+        while(cur != null || !hold.isEmpty()) {
+            while(cur != null) {
+                if(cur != null) {
+                    hold.push(cur);
+                    cur = cur.getLeft();
+                }
+            }
+            assert cur == null;
+            cur = hold.pop();
+            if(cur.getKey() == key) {
+                return cur;
+            }
+            cur = cur.getRight();
+        }
+        return null;
     }
 }
