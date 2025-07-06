@@ -1,13 +1,18 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.io.*;
+import java.util.ArrayList;
 
 public class drawing extends Frame {
     CoffeeMachine machine = new CoffeeMachine(500, 500);
     CheckboxGroup radio;
+
     public static void main(String[] args) {
-        drawing mainFrame = new drawing();
-        mainFrame.setVisible(true);
+            drawing mainFrame = new drawing();
+            mainFrame.setVisible(true);
     }
+
+    
     
     public drawing() {
         setTitle("Coffee Machine Sim Gui");
@@ -33,7 +38,8 @@ public class drawing extends Frame {
         outpL5.setAlignment(Label.LEFT);
         PopupMenu pop = new PopupMenu();       //add stuff to this!
         MenuItem pMenu1 = new MenuItem();
-        pop.add(pMenu1);
+        Button showLogs = new Button("show log file!");
+        
         lockIn.addActionListener(e -> {
             try {
                 if(makeCup.getState()) {
@@ -53,12 +59,22 @@ public class drawing extends Frame {
                 outpL4.setText(outptemp[3]);
                 outpL5.setText(outptemp[4]);
             } catch (InsufficientMaterialsException c) {
-                
                 System.err.println("Machine is empty!");
             } catch (NumberFormatException c) {
                 System.err.println("Please use an actual number!");
             } catch (ArrayIndexOutOfBoundsException c) {
                 System.err.println("IndexOutOfBoundsException detected!");
+            }
+            try {
+                ArrayList<String> list = machine.logReader();
+                for(int i = 0; i < list.size(); i++) {
+                    Label temp = new Label(list.get(i));
+                    add(temp);
+                }
+            } catch (IOException c) {
+                
+            } catch (IndexOutOfBoundsException c) {
+    
             }
         });
         clean.addActionListener(e -> {
@@ -75,6 +91,10 @@ public class drawing extends Frame {
                 System.err.println("IndexOutOfBoundsException detected!");
             }
         });
+        showLogs.addActionListener(e -> {
+            logMenu log = new logMenu();
+            log.setVisible(true);
+        });
         add(makeCup);
         add(fillCoffee);
         add(fillWater);
@@ -86,10 +106,36 @@ public class drawing extends Frame {
         add(outpL3);
         add(outpL4);
         add(outpL5);
+        add(showLogs);
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 System.exit(0);
             }
         });
     }
+
+    class logMenu extends Frame {
+        logMenu() {
+            setTitle("Coffee Machine Sim logs");
+            setSize(500, 1200);
+            setLayout(new FlowLayout());            
+            try {
+                ArrayList<String> list = machine.logReader();
+                for(int i = 0; i < list.size(); i++) {
+                    Label temp = new Label(list.get(i));
+                    add(temp);
+                }
+            } catch (IOException e) {
+                
+            } catch (IndexOutOfBoundsException e) {
+    
+            }
+            addWindowListener(new WindowAdapter() {
+                public void windowClosing(WindowEvent e) {
+                    System.exit(0);
+                }
+            });
+        }
+    }
+
 }

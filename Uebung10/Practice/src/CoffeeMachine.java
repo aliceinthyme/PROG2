@@ -1,5 +1,10 @@
+import java.io.*;
+import java.util.ArrayList;
+
 public class CoffeeMachine {
     private int cofFill, watFill, watCap, cofCap, cleanCounter, lifetimeCups;
+    File logs = new File("coffeelogs.txt");
+
     CoffeeMachine(int wat, int cof) {
         watCap = wat;
         cofCap = cof*10;
@@ -30,6 +35,11 @@ public class CoffeeMachine {
             cofFill -= 75;
             watFill -= 150;
         } else {
+            try {
+                logWriter("Water or Coffee low!! Water: "+watFill+" Coffee: "+cofFill);
+            } catch (IOException e) {
+                System.err.println("IOException @ makeCup in CoffeeMachine.java");
+            }
             throw new InsufficientMaterialsException();
         }
     }
@@ -38,6 +48,11 @@ public class CoffeeMachine {
         if(over < 0) {
             watFill = watCap;
             System.out.println("You refill the container completely, but refrain from pouring the remaining "+-over+"ml into the already full container!");
+            try {
+                logWriter("Refill successful, overfill of Water attempted of "+-over);
+            } catch (IOException e) {
+                System.err.println("IOException @ fillWater in CoffeeMachine.java");
+            }
         } else {
             watFill += refill;
         }
@@ -47,11 +62,36 @@ public class CoffeeMachine {
         if(over < 0) {
             cofFill = cofCap;
             System.out.println("You refill the container completely, but refrain from pouring the remaining "+(double)(-over/10)+"g into the already full container!");
+            try {
+                logWriter("Refill successful, overfill of Coffee attempted of "+-over);
+            } catch (IOException e) {
+                System.err.println("IOException @ fillCoffee in CoffeeMachine.java");
+            }
         } else {
             cofFill += (refill*10);
         }
     }
     public void clean() {
         this.cleanCounter = 12;
+    }
+
+    private void logWriter(String input) throws IOException {
+        FileWriter write = new FileWriter(logs, true);
+        write.append(input+"\n");
+        write.flush();
+        write.close();
+    }
+
+    public ArrayList<String> logReader() throws IOException {
+        FileReader inp = new FileReader(logs);
+        BufferedReader read = new BufferedReader(inp);
+        ArrayList<String> list = new ArrayList<String>();
+        String temp = "";
+        while ((temp = read.readLine()) != null) {
+            list.add(temp);
+        }
+        read.close();
+        inp.close();
+        return list;
     }
 }
